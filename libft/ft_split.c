@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:15:37 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/02 09:59:35 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:10:02 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int	ft_count_words(char const *s, char sep)
+static size_t	ft_count_words(char const *s, char c)
 {
-	int	i;
-	int	words_count;
+    size_t	count;
+    int		in_word;
 
-	words_count = 0;
-	i = 0;
-	while (s[i])
-	{
-		while (s[i] && s[i] == sep)
-			i++;
-		if (sep)
-		{
-			words_count++;
-			while (s[i] && s[i] != sep)
-				i++;
-		}
-	}
-	return (words_count);
+    count = 0;
+    in_word = 0;
+    while (*s)
+    {
+        if (*s != c && in_word == 0)
+        {
+            in_word = 1;
+            count++;
+        }
+        else if (*s == c)
+            in_word = 0;
+        s++;
+    }
+    return (count);
 }
 
 static void	*ft_free(char **strs, int count)
@@ -68,39 +68,55 @@ static char	*fill_word(const char *str, int start, int end)
 	return (word);
 }
 
-static void	ft_initiate(size_t *i, int *j, int *is_word, size_t *len, char const *s)
+static void	ft_initiate(size_t *i, size_t *j, size_t *start)
 {
 	*i = 0;
 	*j = 0;
-	*is_word = -1;
-	*len = ft_strlen(s);
+	*start = 0;
+}
+static char	**ft_split_words(const char *s, char c, char **buffer, size_t len)
+{
+	size_t	start;
+	size_t	i;
+	size_t	j;
+	
+	ft_initiate(&i, &j, &start);
+	while (i <= len)
+	{
+		if (s[i] != c && (i == 0 || s[i - 1] == c))
+			start = i;
+		if (s[i] == c || i == len)
+		{
+			if (i > 0 && s[i - 1] != c)
+			{
+				buffer[j] = fill_word(s, start, i);
+				if (!buffer[j])
+					return (ft_free(buffer, j));
+				j++;
+			}
+		}
+		i++;
+	}
+	return (buffer);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**buffer;
-	size_t	i;
-	int		j;
-	int		is_word;
 	size_t	len;
+	size_t	words_count;
 
-	ft_initiate(&i, &j, &is_word, &len, s);
-	buffer = ft_calloc((ft_count_words(s, c) + 1), sizeof(char *));
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	words_count = ft_count_words(s, c);
+	if (*s == '\0' || words_count == 0)
+	{
+		buffer = ft_calloc(1, sizeof(char *));
+		return (buffer);
+	}
+	buffer = ft_calloc((words_count + 1), sizeof(char *));
 	if (!buffer)
 		return (NULL);
-	while (i <= len)
-	{
-		if (s[i] != c && is_word < 0)
-			is_word = i;
-		else if ((s[i] == c || i == len) && is_word >= 0)
-		{
-			buffer[j] = fill_word(s, is_word, i);
-			if (!buffer[j])
-				return (ft_free(buffer, j));
-			is_word = -1;
-			j++;
-		}
-		i++;
-	}
-	return (buffer);
+	return (ft_split_words(s, c, buffer, len));
 }
