@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:16:13 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/04 11:35:31 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/09 20:13:05 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stddef.h>
+# include <limits.h>
 
 typedef struct s_list
 {

@@ -6,33 +6,31 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:15:37 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/05 13:10:02 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:54:00 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static size_t	ft_count_words(char const *s, char c)
 {
-    size_t	count;
-    int		in_word;
+	size_t	count;
+	int		in_word;
 
-    count = 0;
-    in_word = 0;
-    while (*s)
-    {
-        if (*s != c && in_word == 0)
-        {
-            in_word = 1;
-            count++;
-        }
-        else if (*s == c)
-            in_word = 0;
-        s++;
-    }
-    return (count);
+	count = 0;
+	in_word = 0;
+	while (*s)
+	{
+		if (*s != c && in_word == 0)
+		{
+			in_word = 1;
+			count++;
+		}
+		else if (*s == c)
+			in_word = 0;
+		s++;
+	}
+	return (count);
 }
 
 static void	*ft_free(char **strs, int count)
@@ -68,19 +66,15 @@ static char	*fill_word(const char *str, int start, int end)
 	return (word);
 }
 
-static void	ft_initiate(size_t *i, size_t *j, size_t *start)
-{
-	*i = 0;
-	*j = 0;
-	*start = 0;
-}
 static char	**ft_split_words(const char *s, char c, char **buffer, size_t len)
 {
 	size_t	start;
 	size_t	i;
 	size_t	j;
-	
-	ft_initiate(&i, &j, &start);
+
+	i = 0;
+	j = 0;
+	start = 0;
 	while (i <= len)
 	{
 		if (s[i] != c && (i == 0 || s[i - 1] == c))

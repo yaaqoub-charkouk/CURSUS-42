@@ -20,17 +20,21 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $?
 	
-bonus: $(BONUS_OBJ)
+bonus: .bonus
+	
+.bonus: $(BONUS_OBJ)
+	touch .bonus
 	ar rcs $(NAME) $?
 
-%.o:  %.c
+%.o:  %.c libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(BONUS_OBJ)
+	rm -f .bonus
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) 
 
 re : fclean all
 .PHONY: all bonus clean fclean re

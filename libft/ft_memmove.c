@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 19:50:14 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/10/29 15:59:19 by ycharkou         ###   ########.fr       */
+/*   Created: 2024/11/09 17:10:55 by ycharkou          #+#    #+#             */
+/*   Updated: 2024/11/09 17:13:01 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	char	*source;
 	char	*dest;
-	size_t			i;
+	size_t	i;
 
-	if (!dst && !src)
-		return (dst);
 	source = (char *)src;
 	dest = (char *)dst;
 	i = 0;
@@ -28,7 +26,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		while (len-- > 0)
 			dest[len] = source[len];
 	}
-	else 
+	else if (dest < source)
 	{
 		while (len--)
 			*dest++ = *source++;

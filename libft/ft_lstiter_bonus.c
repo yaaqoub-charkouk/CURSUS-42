@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 19:48:37 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/02 07:53:26 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/09 20:25:34 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (!lst)
+	if (!lst || !f)
 		return ;
 	while (lst)
 	{

@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 08:07:27 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/04 13:33:39 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:35:43 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	ch;
-	unsigned char	*string;
-	size_t			i;
+	unsigned char		ch;
+	const unsigned char	*string;
+	size_t				i;
 
 	i = 0;
-	string = (unsigned char *)s;
+	string = (const unsigned char *)s;
 	ch = (unsigned char)c;
 	while (i < n)
 	{

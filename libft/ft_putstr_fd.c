@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:36:10 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/10/30 12:40:42 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:59:04 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
+	if (!s)
+		return ;
 	i = 0;
-	while(s[i] != '\0')
+	while (s[i] != '\0')
 	{
 		write (fd, &s[i], 1);
 		i++;

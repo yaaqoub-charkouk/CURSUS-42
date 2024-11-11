@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 07:40:52 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/02 10:14:31 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:16:22 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	end;
 	size_t	start;
 
-	if (!s1 || !set || !*s1)
+	if (!s1 || !set)
+		return (NULL);
+	if (!*s1)
 		return (ft_strdup(s1));
 	start = 0;
 	end = ft_strlen(s1) - 1;

@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 15:06:14 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/10/29 10:16:01 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:35:51 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 void	*ft_calloc(size_t count, size_t size)
 {
 	unsigned char	*s;
-	size_t			size1;
+	size_t			total;
 
-	size1 = count * size;
-	s = (unsigned char *)malloc(size1);
+	total = count * size;
+	if (!total)
+		return (malloc(0));
+	if (count != 0 && (total / count) != size)
+		return (NULL);
+	s = (unsigned char *)malloc(total);
 	if (s == NULL)
 		return (NULL);
-	ft_bzero(s, size1);
+	ft_bzero(s, total);
 	return (s);
 }

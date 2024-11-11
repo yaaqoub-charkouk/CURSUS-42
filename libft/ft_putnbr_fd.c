@@ -6,13 +6,13 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:12:25 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/10/30 13:40:34 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/09 20:34:16 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_count(size_t *count, int n)
+static void	ft_count(size_t *count, int n)
 {
 	long int	nb;
 
@@ -32,10 +32,10 @@ void	ft_count(size_t *count, int n)
 	}
 }
 
-void ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t	count;
-	char	str[100];
+	size_t		count;
+	char		str[12];
 	long int	nb;
 
 	ft_count(&count, n);
@@ -55,5 +55,3 @@ void ft_putnbr_fd(int n, int fd)
 	}
 	ft_putstr_fd(str, fd);
 }
-
-

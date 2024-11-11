@@ -6,13 +6,13 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:29:51 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/10/30 12:32:01 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:10:36 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
 	write (fd, &c, 1);
 }
