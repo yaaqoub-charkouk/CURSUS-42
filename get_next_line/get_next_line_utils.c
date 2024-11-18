@@ -34,7 +34,6 @@ char	*ft_strjoin(char *accumulation, char *s2)
 		free(accumulation);
 	}
 	ft_strlcpy(string + s1_len, s2, s2_len + 1);
-	// free(s2);
 	return (string);
 }
 
@@ -58,28 +57,6 @@ char    *ft_strdup(const char *s1)
 	return (string);
 }
 
-// size_t  ft_strlcat(char *dst, const char *src, size_t dstsize)
-// {
-// 	size_t  i;
-// 	size_t  dst_len;
-// 	size_t  src_len;
-
-// 	// if (!dst && dstsize == 0)
-// 	//         return (ft_strlen(src));
-// 	dst_len = ft_strlen(dst);
-// 	src_len = ft_strlen(src);
-// 	i = 0;
-// 	// if (dstsize <= dst_len)
-// 	//         return (dstsize + src_len);
-// 	while (src[i] != '\0' && dst_len + i < dstsize - 1)
-// 	{
-// 		dst[dst_len + i] = src[i];
-// 		i++;
-// 	}
-// 	dst[dst_len + i] = '\0';
-// 	return (dst_len + src_len);//the actual size for stash 
-// }
-//we have changed size_t ot ssize_t to handle negative numbers
 ssize_t  ft_strchr(const char *accumulation, int c)
 {
 	int i;
@@ -120,16 +97,14 @@ char *ft_substr(char *accumulation, unsigned int start, size_t len)
 	char *sub;
 
 	if (!accumulation)
-		return NULL;
+		return (NULL);
 	acc_len = ft_strlen(accumulation);
 	final = acc_len - start;
 	if (final > len)
 		final = len;   
 	sub = malloc((final + 1) * sizeof(char));
 	if (!sub)
-		return NULL;
+		return (NULL);
 	ft_strlcpy(sub, accumulation + start, final + 1);
-	// if(ft_strchr(accumulation, '\n'))
-		// free(accumulation);
 	return sub;
 }

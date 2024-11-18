@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/18 16:56:19 by ycharkou          #+#    #+#             */
+/*   Updated: 2024/11/18 16:58:06 by ycharkou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-//the function read from the file to buffer , and concatenate to the accumulation
 char	*read_and_accumulate(int fd, char *accumulation)
 {
 	char	buffer[BUFFER_SIZE + 1];
@@ -11,12 +22,11 @@ char	*read_and_accumulate(int fd, char *accumulation)
 	{
 		buffer[bytes_read] = '\0';
 		accumulation = ft_strjoin(accumulation, buffer);
-		//break if new line char found
 		if (ft_strchr(accumulation, '\n') != -1)
 			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	}
-	if (bytes_read == -1)//nchofo wash shiha ? ah shiha
+	if (bytes_read == -1)
 	{
 		free(accumulation);
 		accumulation = NULL;
@@ -24,7 +34,7 @@ char	*read_and_accumulate(int fd, char *accumulation)
 	}
 	return (accumulation);
 }
-//if newline found ,  return the line and update the static accumulation
+
 char	*extract_line(char **accumulation)
 {
 	char	*line;
@@ -37,7 +47,6 @@ char	*extract_line(char **accumulation)
 		line = ft_substr(*accumulation, 0, nl_index + 1);
 		new_accumulation = ft_strdup(*accumulation + nl_index + 1);
 		free(*accumulation);
-		//update accumulation after freeing it , that way it will continue reading in the next func call .
 		*accumulation = new_accumulation;
 	}
 	else
@@ -49,7 +58,7 @@ char	*extract_line(char **accumulation)
 	return (line);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char	*accumulation;
 
@@ -57,15 +66,14 @@ char *get_next_line(int fd)
 	{
 		free(accumulation);
 		accumulation = NULL;
-		return NULL;
+		return (NULL);
 	}
 	accumulation = read_and_accumulate(fd, accumulation);
-	//see if no data been accumulated , or no left data to process
 	if (!accumulation || !*accumulation)
 	{
 		free(accumulation);
 		accumulation = NULL;
-		return NULL;
+		return (NULL);
 	}
 	return (extract_line(&accumulation));
 }
