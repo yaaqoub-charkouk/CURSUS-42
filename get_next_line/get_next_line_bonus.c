@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:56:19 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/19 15:21:47 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:23:09 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 ssize_t	ft_strchr(const char *accumulation, int c)
 {
@@ -77,20 +77,20 @@ char	*extract_line(char **accumulation)
 
 char	*get_next_line(int fd)
 {
-	static char	*accumulation;
+	static char	*accumulation[OPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1)
 	{
-		free(accumulation);
-		accumulation = NULL;
+		free(accumulation[fd]);
+		accumulation[fd] = NULL;
 		return (NULL);
 	}
-	accumulation = read_and_accumulate(fd, accumulation);
-	if (!accumulation || !*accumulation)
+	accumulation[fd] = read_and_accumulate(fd, accumulation[fd]);
+	if (!accumulation[fd] || !*accumulation[fd])
 	{
-		free(accumulation);
-		accumulation = NULL;
+		free(accumulation[fd]);
+		accumulation[fd] = NULL;
 		return (NULL);
 	}
-	return (extract_line(&accumulation));
+	return (extract_line(&accumulation[fd]));
 }
