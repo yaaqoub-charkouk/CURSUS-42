@@ -6,60 +6,74 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:11:56 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/19 15:17:39 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:01:24 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+ssize_t	ft_strchr(const char *accumulation, int c)
+{
+	ssize_t	i;
+
+	i = 0;
+	if (!accumulation)
+		return (-1);
+	while (accumulation[i])
+	{
+		if (accumulation[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 size_t	ft_strlen(const char *accumulation)
 {
 	size_t	i;
 
 	i = 0;
+	if (!accumulation)
+		return (0);
 	while (accumulation[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strjoin(char *accumulation, char *s2)
+char	*ft_strjoin(char *acc, char *buff)
 {
 	char	*string;
-	size_t	s_len;
-	size_t	s1_len;
-	size_t	s2_len;
+	size_t	i;
+	size_t	j;
 
-	if (!s2)
-		return (NULL);
-	s1_len = 0;
-	if (accumulation)
-		s1_len = ft_strlen(accumulation);
-	s2_len = ft_strlen(s2);
-	s_len = s1_len + s2_len;
-	string = malloc((s_len + 1) * sizeof(char));
+	string = malloc((ft_strlen(acc) + ft_strlen(buff) + 1) * sizeof(char));
 	if (!string)
+		return (free(acc), NULL);
+	i = 0;
+	if (acc)
 	{
-		free(accumulation);
-		return (NULL);
+		while (acc[i])
+		{
+			string[i] = acc[i];
+			i++;
+		}
 	}
-	if (accumulation)
+	j = 0;
+	while (buff[j])
 	{
-		ft_strlcpy(string, accumulation, s1_len + 1);
-		free(accumulation);
+		string[i + j] = buff[j];
+		j++;
 	}
-	ft_strlcpy(string + s1_len, s2, s2_len + 1);
-	return (string);
+	return (free(acc), string[i + j] = '\0', string);
 }
 
 char	*ft_strdup(const char *s1)
 {
 	char	*string;
-	size_t	len;
 	size_t	i;
 
 	i = 0;
-	len = ft_strlen(s1) + 1;
-	string = malloc(len * sizeof(char));
+	string = malloc(ft_strlen(s1) + 1 * sizeof(char));
 	if (!string)
 		return (NULL);
 	while (s1[i])
@@ -67,45 +81,28 @@ char	*ft_strdup(const char *s1)
 		string[i] = s1[i];
 		i++;
 	}
-	string[i] = '\0';
-	return (string);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	srcsize;
-
-	srcsize = 0;
-	while (src[srcsize] != '\0')
-		srcsize++;
-	if (dstsize == 0)
-		return (srcsize);
-	i = 0;
-	while (i < dstsize - 1 && src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (srcsize);
+	return (string[i] = '\0', string);
 }
 
 char	*ft_substr(char *accumulation, unsigned int start, size_t len)
 {
-	size_t	acc_len;
-	size_t	final;
 	char	*sub;
+	size_t	final;
+	size_t	i;
 
 	if (!accumulation)
 		return (NULL);
-	acc_len = ft_strlen(accumulation);
-	final = acc_len - start;
+	final = ft_strlen(accumulation) - start;
 	if (final > len)
 		final = len;
 	sub = malloc((final + 1) * sizeof(char));
 	if (!sub)
 		return (NULL);
-	ft_strlcpy(sub, accumulation + start, final + 1);
-	return (sub);
+	i = 0;
+	while (i < final && accumulation[start + i])
+	{
+		sub[i] = accumulation[start + i];
+		i++;
+	}
+	return (sub[i] = '\0', sub);
 }

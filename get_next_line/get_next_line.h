@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:19:28 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/19 15:07:57 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:49:04 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 
 char	*get_next_line(int fd);
 ssize_t	ft_strchr(const char *accumulation, int c);
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *accumulation, char *buffer);
+size_t	ft_strlen(const char *accumulation);
+char	*ft_strjoin(char *acc, char *buff);
 char	*ft_strdup(const char *s1);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_substr(char *accumulation, unsigned int start, size_t len);
 
 #endif
