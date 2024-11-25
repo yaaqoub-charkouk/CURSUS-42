@@ -1,16 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 11:22:22 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/24 18:29:50 by ycharkou         ###   ########.fr       */
+/*   Created: 2024/11/25 17:47:30 by ycharkou          #+#    #+#             */
+/*   Updated: 2024/11/25 17:49:23 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+	return (1);
+}
+
+int	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+	int	bytes_written;
+
+	if (!s)
+		return (ft_putstr_fd("(null)", fd));
+	i = 0;
+	bytes_written = 0;
+	while (s[i] != '\0')
+	{
+		write(fd, &s[i], 1);
+		bytes_written++;
+		i++;
+	}
+	return (bytes_written);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 int	is_valid_base(char *base)
 {
@@ -36,36 +70,18 @@ int	is_valid_base(char *base)
 	return (1);
 }
 
-int	ft_putnbr_base_recursive(unsigned long nbr, char *base, int base_len)
-{
-	int	count;
-
-	count = 0;
-	if (nbr >= (unsigned long)base_len)
-		count += ft_putnbr_base_recursive(nbr / base_len, base, base_len);
-	ft_putchar_fd(base[nbr % base_len], 1);
-	count++;
-	return (count);
-}
-
-int	ft_putnbr_base(unsigned long nbr, char *base)
+int	ft_nbr(unsigned long nbr, char *base)
 {
 	int				count;
-	unsigned long	num;
 	int				base_len;
 
 	if (!is_valid_base(base))
 		return (0);
-	count = 0;
 	base_len = ft_strlen(base);
-	if (nbr < 0)
-	{
-		ft_putchar_fd('-', 1);
-		count++;
-		num = -nbr;
-	}
-	else
-		num = nbr;
-	count += ft_putnbr_base_recursive(num, base, base_len);
+	count = 0;
+	if (nbr >= (unsigned long)base_len)
+		count += ft_nbr(nbr / base_len, base);
+	ft_putchar_fd(base[nbr % base_len], 1);
+	count++;
 	return (count);
 }
