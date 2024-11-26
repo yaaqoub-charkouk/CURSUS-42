@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:41:15 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/25 17:47:20 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:21:00 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ int	ft_printf(const char *format, ...)
 	int		ret;
 	va_list	args;
 
+	if (write(1, NULL, 0) == -1)
+		return (-1);
 	va_start(args, format);
 	ret = 0;
 	while (*format != '\0')
 	{
 		if (*format == '%' && *(format + 1))
 		{
-			format++;
-			ft_printf_helper(format, args, &ret);
+			ft_printf_helper(++format, args, &ret);
 			if (*format == 'x')
 				ret += ft_nbr(va_arg(args, unsigned int), "0123456789abcdef");
 			else if (*format == 'X')

@@ -6,7 +6,7 @@
 /*   By: ycharkou <ycharkou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:11:56 by ycharkou          #+#    #+#             */
-/*   Updated: 2024/11/20 17:01:24 by ycharkou         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:50:08 by ycharkou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ char	*ft_strjoin(char *acc, char *buff)
 		}
 	}
 	j = 0;
-	while (buff[j])
+	if (buff)
 	{
-		string[i + j] = buff[j];
-		j++;
+		while (buff[j++])
+			string[i + j - 1] = buff[j - 1];
 	}
 	return (free(acc), string[i + j] = '\0', string);
 }
